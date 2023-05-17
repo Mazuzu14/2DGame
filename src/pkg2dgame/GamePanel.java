@@ -6,6 +6,7 @@ package pkg2dgame;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
@@ -31,4 +32,33 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
     }
+    
+    public void startGameThread()
+    {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+        while(gameThread != null)
+        {           
+            //UPDATE information
+            update();
+            //DRAW with updated information
+            //repaint calls painComponent
+            repaint();
+        }
+    }
+    
+    public void update()
+    {
+        
+    }
+    public void paintComponent(Graphics g) 
+    {
+         super.paintComponent(g);
+    }
 }
+
+
