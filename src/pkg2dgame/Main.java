@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  *
  * @author Mazuki
  */
-public class Main {
+public class Maain {
 
     /**
      * @param args the command line arguments
