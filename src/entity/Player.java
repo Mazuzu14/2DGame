@@ -23,29 +23,54 @@ public class Player extends Entity{
         gp = g;
         keyH = kh;
         setDefaultValues();
+        getPlayerImage();
     }
     public void setDefaultValues()
     {
         x = 100;
         y = 100;
         speed = 4;
+        direction = "down";
+    }
+    
+    public void getPlayerImage()
+    {
+        try
+        {
+            up1 = ImageIO.read(getClass().getResourceAsStream());
+            up2 = ImageIO.read(getClass().getResourceAsStream());
+            down1 = ImageIO.read(getClass().getResourceAsStream());
+            down2 = ImageIO.read(getClass().getResourceAsStream());
+            left1 = ImageIO.read(getClass().getResourceAsStream());
+            left2 = ImageIO.read(getClass().getResourceAsStream());
+            right1 = ImageIO.read(getClass().getResourceAsStream());
+            right2 = ImageIO.read(getClass().getResourceAsStream());
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
     public void update()
     {
         if (keyH.upPressed == true)
         {
+            direction = "up";
             y -= speed;
         }
         else if (keyH.downPressed == true)
         {
+            direction = "down";
             y += speed;
         }
         else if (keyH.leftPressed == true)
         {
+            direction = "left";
             x -= speed;
         }
         else if (keyH.rightPressed == true)
         {
+            direction = "right";
             x += speed;
         }
     }
