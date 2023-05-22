@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import tile.TileManager;
 
 /**
  *
@@ -23,42 +24,37 @@ public class GamePanel extends JPanel implements Runnable{
     final int scale = 3;
     
     public final int tileSize = originalTileSize * scale; // 48x48 tile size
-    final int maxScreenCol = 16;
-    final int maxScreenRow =12;
+    final int maxScreenCol = 16; //tiles across screen
+    final int maxScreenRow =12; //tiles down screen
     final int screenWidth = tileSize * maxScreenCol; //768 pixels
     final int screenHeight = tileSize * maxScreenRow; //576 pixels
     
-    int FPS = 60;
+    int FPS = 60;//sets frames per second
     
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
     
-    //Set player's default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-    
     public GamePanel()
     {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        //allows Game Panel to recieve key input
-        this.setFocusable(true);
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //sets size of screen
+        this.setBackground(Color.black); //sets background color
+        this.setDoubleBuffered(true); //eliminates image flickering
+        this.addKeyListener(keyH); //allows Game Panel to recieve key input
+        this.setFocusable(true); //allows Game Panel to be focused
     }
     
     public void startGameThread()
     {
-        gameThread = new Thread(this);
-        gameThread.start();
+        gameThread = new Thread(this); //creates a thread object
+        gameThread.start(); //starts the thread object
     }
 
     @Override
     public void run() {
         double drawInterval = 1000000000/FPS; //1 second divided by frames
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double nextDrawTime = System.nanoTime() + drawInterval; //returns current time + time too next draw
         while(gameThread != null)
         {           
             //UPDATE information
@@ -69,31 +65,37 @@ public class GamePanel extends JPanel implements Runnable{
             repaint();
             
             try {
-                double remainingTime = nextDrawTime - System.nanoTime();
+                double remainingTime = nextDrawTime - System.nanoTime(); //finds time remaining between current time and next draw time
                 remainingTime = remainingTime/1000000; //convert to miliseconds
-                
+                //sets remaining time to 0 if it has already been passed
                 if (remainingTime < 0)
                 {
-                    remainingTime = 0;
+                    remainingTime = 0; 
                 }
-                Thread.sleep((long)remainingTime);
+                Thread.sleep((long)remainingTime); //pauses the method for the remainingTime
                 
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+                nextDrawTime += drawInterval; //updates nextDrawTime
+            } 
+            catch (InterruptedException ex) 
+            {
+                Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex); //catches possible error
             }
         }
     }
     
     public void update()
     {
-        player.update();
+        player.update(); //updates player information
     }
     public void paintComponent(Graphics g) 
     {
          super.paintComponent(g);
          Graphics2D g2 = (Graphics2D)g;
+         //draws tiles
+         tileM.draw(g2);
+         //draws player
          player.draw(g2);
+         //reallocates resources used by graphics object
          g2.dispose();
          
     }

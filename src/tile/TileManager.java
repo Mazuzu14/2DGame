@@ -1,0 +1,49 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package tile;
+
+import java.awt.Graphics2D;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import pkg2dgame.GamePanel;
+
+/**
+ *
+ * @author 820899
+ */
+public class TileManager {
+
+GamePanel gp;
+Tile[] tile;
+
+public TileManager(GamePanel g)
+{
+    gp = g;
+    tile = new Tile[10];
+    getTileImage();
+}
+public void getTileImage()
+{
+    try
+    {
+        tile[0] = new Tile();
+        tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+        
+        tile[1] = new Tile();
+        tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+        
+        tile[2] = new Tile();
+        tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+    }
+    catch(IOException e)
+    {
+        e.printStackTrace();
+    }
+}
+public void draw(Graphics2D g2)
+{
+    g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
+}
+}
