@@ -24,10 +24,10 @@ public class GamePanel extends JPanel implements Runnable{
     final int scale = 3;
     
     public final int tileSize = originalTileSize * scale; // 48x48 tile size
-    final int maxScreenCol = 16; //tiles across screen
-    final int maxScreenRow =12; //tiles down screen
-    final int screenWidth = tileSize * maxScreenCol; //768 pixels
-    final int screenHeight = tileSize * maxScreenRow; //576 pixels
+    public final int maxScreenCol = 16; //tiles across screen
+    public final int maxScreenRow =12; //tiles down screen
+    public final int screenWidth = tileSize * maxScreenCol; //768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; //576 pixels
     
     int FPS = 60;//sets frames per second
     
@@ -91,12 +91,9 @@ public class GamePanel extends JPanel implements Runnable{
     {
          super.paintComponent(g);
          Graphics2D g2 = (Graphics2D)g;
-         //draws tiles
-         tileM.draw(g2);
-         //draws player
-         player.draw(g2);
-         //reallocates resources used by graphics object
-         g2.dispose();
+         tileM.draw(g2);//draws tiles
+         player.draw(g2);//draws player
+         g2.dispose();//reallocates resources used by graphics object
          
     }
 }

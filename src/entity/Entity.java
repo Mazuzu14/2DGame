@@ -12,12 +12,12 @@ import java.awt.image.BufferedImage;
  */
 public class Entity {
 
-    public int x, y;
-    public int speed;
+    public int x, y; //location of entity
+    public int speed; 
     //Stores image files
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2; 
     public String direction;
     
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    public int spriteCounter = 0; //timer for sprite
+    public int spriteNum = 1; //current sprite image
 }

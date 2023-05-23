@@ -5,7 +5,10 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import pkg2dgame.GamePanel;
 
@@ -17,33 +20,76 @@ public class TileManager {
 
 GamePanel gp;
 Tile[] tile;
+int mapTileNum[][];
 
 public TileManager(GamePanel g)
 {
     gp = g;
-    tile = new Tile[10];
-    getTileImage();
+    tile = new Tile[10]; //instatiates tile array
+    mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+    getTileImage(); //creates tile objects in tile array
 }
 public void getTileImage()
 {
     try
     {
         tile[0] = new Tile();
-        tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+        tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass.png")); //sets tile at index 0 to grass
         
         tile[1] = new Tile();
-        tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+        tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Wall.png"));//sets tile at index 1 to wall
         
         tile[2] = new Tile();
-        tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+        tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Water.png")); //sets tile at index 2 to water
     }
     catch(IOException e)
     {
-        e.printStackTrace();
+        e.printStackTrace(); //catches possible error
+    }
+}
+public void loadMap()
+{
+    try
+    {
+        InputStream is = getClass().getResourceAsStream("/maps/map01.txt"); //imports text file
+        BufferedReader br = new BufferedReader(new InputStreamReader(is)); //reads text file
+        
+        int col = 0;
+        int row = 0;
+        while (col < gp.maxScreenCol && row < gp.maxScreenCol)
+        {
+            String line = br.readLine(); //reads line from textfile
+            
+            while(col < gp.maxScreenCol)
+            {
+                String numbers[] = line.split(" "); //seperates string based on spaces
+            }
+        }
+    }
+    catch(Exception e)
+    {
+        
     }
 }
 public void draw(Graphics2D g2)
 {
-    g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
+    int col = 0;
+    int row =0;
+    int x = 0;
+    int y = 0;
+    while (col < gp.maxScreenCol && row < gp.maxScreenRow)
+    {
+        g2.drawImage(tile[0].image, x , y, gp.tileSize, gp.tileSize, null);
+        col++;
+        x+=gp.tileSize;
+        //goes to next row if at end of row
+        if (col == gp.maxScreenCol)
+        {
+            col = 0;
+            x = 0;
+            row++;
+            y += gp.tileSize;
+        }
+    }
 }
 }

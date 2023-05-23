@@ -18,7 +18,7 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
+    //checks if key is pressed
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -40,7 +40,7 @@ public class KeyHandler implements KeyListener{
         }
         
     }
-
+    //checks if key is let go
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
