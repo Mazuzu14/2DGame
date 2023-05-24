@@ -16,13 +16,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("2D Adventure");
+        JFrame window = new JFrame(); 
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //stops program when window is closed
+        window.setResizable(false); //sets window size
+        window.setTitle("2D Adventure"); //sets title of window
         
         GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        window.add(gamePanel); 
         
         window.pack();
         
