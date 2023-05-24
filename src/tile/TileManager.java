@@ -28,6 +28,7 @@ public TileManager(GamePanel g)
     tile = new Tile[10]; //instatiates tile array
     mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
     getTileImage(); //creates tile objects in tile array
+    loadMap(); //loads map
 }
 public void getTileImage()
 {
@@ -56,15 +57,23 @@ public void loadMap()
         
         int col = 0;
         int row = 0;
-        while (col < gp.maxScreenCol && row < gp.maxScreenCol)
+        while (col < gp.maxScreenCol && row < gp.maxScreenRow)
         {
             String line = br.readLine(); //reads line from textfile
             
             while(col < gp.maxScreenCol)
             {
                 String numbers[] = line.split(" "); //seperates string based on spaces
+                
+                int num = Integer.parseInt(numbers[col]); //converts string to num
+                
+                mapTileNum[col][row] = num;
+                col++;
             }
+            col = 0;
+            row++;
         }
+        br.close(); //stops reading file
     }
     catch(Exception e)
     {
@@ -79,9 +88,10 @@ public void draw(Graphics2D g2)
     int y = 0;
     while (col < gp.maxScreenCol && row < gp.maxScreenRow)
     {
-        g2.drawImage(tile[0].image, x , y, gp.tileSize, gp.tileSize, null);
+        int tileNum = mapTileNum[col][row];
+        g2.drawImage(tile[tileNum].image, x , y, gp.tileSize, gp.tileSize, null);
         col++;
-        x+=gp.tileSize;
+        x += gp.tileSize;
         //goes to next row if at end of row
         if (col == gp.maxScreenCol)
         {
