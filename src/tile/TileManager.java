@@ -26,7 +26,7 @@ public TileManager(GamePanel g)
 {
     gp = g;
     tile = new Tile[10]; //instatiates tile array
-    mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+    mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
     getTileImage(); //creates tile objects in tile array
     loadMap(); //loads map
 }
@@ -42,6 +42,16 @@ public void getTileImage()
         
         tile[2] = new Tile();
         tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Water.png")); //sets tile at index 2 to water
+        
+        tile[3] = new Tile();
+        tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Dirt.png")); //sets tile at index 3 to earth
+        
+        tile[4] = new Tile();
+        tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Tree.png")); //sets tile at index 4 to tree
+        
+        tile[5] = new Tile();
+        tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Sand.png")); //sets tile at index 5 to sand
+        
     }
     catch(IOException e)
     {
@@ -67,7 +77,7 @@ public void loadMap()
                 
                 int num = Integer.parseInt(numbers[col]); //converts string to num
                 
-                mapTileNum[col][row] = num;
+                mapTileNum[row][col] = num;
                 col++;
             }
             col = 0;
@@ -88,7 +98,7 @@ public void draw(Graphics2D g2)
     int y = 0;
     while (col < gp.maxScreenCol && row < gp.maxScreenRow)
     {
-        int tileNum = mapTileNum[col][row];
+        int tileNum = mapTileNum[row][col];
         g2.drawImage(tile[tileNum].image, x , y, gp.tileSize, gp.tileSize, null);
         col++;
         x += gp.tileSize;
