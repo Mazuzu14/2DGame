@@ -30,15 +30,15 @@ public class Player extends Entity{
         gp = g;
         keyH = kh;
         screenX = gp.screenWidth/2 - gp.tileSize/2;
-        screenY = gp.screenHeight/2 - gp.tileSize/2; //subtract halfway point of screen by player image size
+        screenY = gp.screenHeight/2 - gp.tileSize/2; //subtract halfway point of screen by half of player image size
         setDefaultValues();
         getPlayerImage();
     }
     //sets defalt values for player
     public void setDefaultValues()
     {
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize*21;
+        worldX = gp.tileSize * 21;
+        worldY = gp.tileSize * 23;
         speed = 4;
         direction = "down";
     }

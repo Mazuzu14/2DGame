@@ -22,14 +22,14 @@ public class Main {
         window.setTitle("2D Adventure"); //sets title of window
         
         GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel); 
+        window.add(gamePanel); //links gamepanel to window
         
-        window.pack();
+        window.pack(); //sizes the window's objects to the right size
         
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        window.setLocationRelativeTo(null); //sets gui to center of screen
+        window.setVisible(true); //makes window visible
         
-        gamePanel.startGameThread();
+        gamePanel.startGameThread(); //creates and starts thread
     }
     
 }
