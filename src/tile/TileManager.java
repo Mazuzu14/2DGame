@@ -26,9 +26,9 @@ public TileManager(GamePanel g)
 {
     gp = g;
     tile = new Tile[10]; //instatiates tile array
-    mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+    mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
     getTileImage(); //creates tile objects in tile array
-    loadMap(); //loads map
+    loadMap("/maps/map01.txt"); //loads map
 }
 public void getTileImage()
 {
@@ -48,11 +48,11 @@ public void getTileImage()
         e.printStackTrace(); //catches possible error
     }
 }
-public void loadMap()
+public void loadMap(String filePath)
 {
     try
     {
-        InputStream is = getClass().getResourceAsStream("/maps/map01.txt"); //imports text file
+        InputStream is = getClass().getResourceAsStream(filePath); //imports text file
         BufferedReader br = new BufferedReader(new InputStreamReader(is)); //reads text file
         
         int col = 0;
@@ -67,7 +67,7 @@ public void loadMap()
                 
                 int num = Integer.parseInt(numbers[col]); //converts string to num
                 
-                mapTileNum[col][row] = num;
+                mapTileNum[row][col] = num;
                 col++;
             }
             col = 0;
@@ -88,7 +88,7 @@ public void draw(Graphics2D g2)
     int y = 0;
     while (col < gp.maxScreenCol && row < gp.maxScreenRow)
     {
-        int tileNum = mapTileNum[col][row];
+        int tileNum = mapTileNum[row][col];
         g2.drawImage(tile[tileNum].image, x , y, gp.tileSize, gp.tileSize, null);
         col++;
         x += gp.tileSize;
