@@ -6,6 +6,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -31,6 +32,9 @@ public class Player extends Entity{
         keyH = kh;
         screenX = gp.screenWidth/2 - gp.tileSize/2;
         screenY = gp.screenHeight/2 - gp.tileSize/2; //subtract halfway point of screen by half of player image size
+        
+        solidArea = new Rectangle(8, 16, 32, 32); //sets player hitbox
+        
         setDefaultValues();
         getPlayerImage();
     }
@@ -97,6 +101,9 @@ public class Player extends Entity{
                     spriteNum = 1;
                 spriteCounter = 0;
             }
+            
+            collisionOn = false;
+            gp.cChecker.checkTile(this); //checks if player is hitting tile
         }       
     }
     

@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -12,12 +13,15 @@ import java.awt.image.BufferedImage;
  */
 public class Entity {
 
-    public int worldX, worldY; 
-    public int speed; 
-    //Stores image files
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2; 
-    public String direction;
+    public int worldX, worldY; //position of entity
+    public int speed; //speed of entity
+    
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2; //Stores image files
+    public String direction; //direction of image
     
     public int spriteCounter = 0; //timer for sprite
     public int spriteNum = 1; //current sprite image
+    
+    public Rectangle solidArea; //hitbox of entity
+    public boolean collisionOn = false; 
 }
