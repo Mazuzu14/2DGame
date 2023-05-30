@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import object.SuperObject;
 import tile.TileManager;
 
 /**
@@ -41,7 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
+    public SuperObject[] obj = new SuperObject[10]; //how many objects can be displayed
     
     public GamePanel()
     {
@@ -52,6 +55,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true); //allows Game Panel to be focused
     }
     
+    public void setupGame()
+    {
+        aSetter.setObject();
+    }
     public void startGameThread()
     {
         gameThread = new Thread(this); //creates a thread object
@@ -99,10 +106,19 @@ public class GamePanel extends JPanel implements Runnable{
          super.paintComponent(g);
          Graphics2D g2 = (Graphics2D)g;
          tileM.draw(g2);//draws tiles
+         for(int i = 0; i < obj.length; i++) //draws objects
+         {
+             if (obj[i] != null) //checks if object exists
+             {
+                 obj[i].draw(g2, this);
+             }
+         }
+        //draws object
          player.draw(g2);//draws player
          g2.dispose();//reallocates resources used by graphics object
          
     }
+
 }
 
 

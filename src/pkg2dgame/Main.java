@@ -29,6 +29,7 @@ public class Main {
         window.setLocationRelativeTo(null); //sets gui to center of screen
         window.setVisible(true); //makes window visible
         
+        gamePanel.setupGame();
         gamePanel.startGameThread(); //creates and starts thread
     }
     
