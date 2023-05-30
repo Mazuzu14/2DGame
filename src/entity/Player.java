@@ -91,6 +91,30 @@ public class Player extends Entity{
                 direction = "right";
                 worldX += speed;
             }
+            
+            //CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this); //checks if player is hitting tile
+            if (collisionOn == true) //stops player movement if collison is true
+            {
+                if(direction.equals("up"))
+                {
+                    worldY += speed;
+                }
+                if(direction.equals("down"))
+                {
+                    worldY -= speed;
+                }
+                if(direction.equals("left"))
+                {
+                    worldX += speed;
+                }
+                if(direction.equals("right"))
+                {
+                    worldX  -= speed;
+                }
+            }
+            
             //changes player image every 10 frames
             spriteCounter++;
             if(spriteCounter > 10)
@@ -101,9 +125,6 @@ public class Player extends Entity{
                     spriteNum = 1;
                 spriteCounter = 0;
             }
-            
-            collisionOn = false;
-            gp.cChecker.checkTile(this); //checks if player is hitting tile
         }       
     }
     
