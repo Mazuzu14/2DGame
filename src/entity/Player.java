@@ -33,7 +33,7 @@ public class Player extends Entity{
         screenX = gp.screenWidth/2 - gp.tileSize/2;
         screenY = gp.screenHeight/2 - gp.tileSize/2; //subtract halfway point of screen by half of player image size
         
-        solidArea = new Rectangle(8, 16, 32, 32); //sets player hitbox
+        solidArea = new Rectangle(8, 16, 32, 16); //sets player hitbox
         
         setDefaultValues();
         getPlayerImage();
