@@ -20,7 +20,7 @@ public class TileManager {
 
 GamePanel gp;
 public Tile[] tile;
-public int mapTileNum[][];
+public int[][] mapTileNum;
 
 public TileManager(GamePanel g)
 {
@@ -70,21 +70,21 @@ public void loadMap(String filePath)
         
         int col = 0;
         int row = 0;
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow)
+        while (row < gp.maxWorldRow && col < gp.maxWorldCol)
         {
-            String line = br.readLine(); //reads line from textfile
+            String line = br.readLine(); //reads line from textfile top to  bottom
             
-            while(col < gp.maxWorldCol)
+            while(row < gp.maxWorldRow)
             {
-                String numbers[] = line.split(" "); //seperates string based on spaces
+                String[] numbers = line.split(" "); //seperates string based on spaces
                 
-                int num = Integer.parseInt(numbers[col]); //converts string to num
+                int num = Integer.parseInt(numbers[row]); //converts string to num
                 
                 mapTileNum[row][col] = num;
-                col++;
+                row++;
             }
-            col = 0;
-            row++;
+            row = 0;
+            col++;
         }
         br.close(); //stops reading file
     }
@@ -95,9 +95,9 @@ public void loadMap(String filePath)
 }
 public void draw(Graphics2D g2)
 {
-    int worldCol = 0;
     int worldRow = 0;
-    while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow)
+    int worldCol = 0;
+    while (worldRow < gp.maxWorldRow && worldCol < gp.maxWorldCol)
     {
         int tileNum = mapTileNum[worldRow][worldCol];
         
