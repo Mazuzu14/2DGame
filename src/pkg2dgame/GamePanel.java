@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
+    public UI ui = new UI(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -106,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable{
          super.paintComponent(g);
          Graphics2D g2 = (Graphics2D)g;
          tileM.draw(g2);//draws tiles
+         
          for(int i = 0; i < obj.length; i++) //draws objects
          {
              if (obj[i] != null) //checks if object exists
@@ -113,8 +115,11 @@ public class GamePanel extends JPanel implements Runnable{
                  obj[i].draw(g2, this);
              }
          }
-        //draws object
+
          player.draw(g2);//draws player
+         
+         ui.draw(g2);//draws UI
+         
          g2.dispose();//reallocates resources used by graphics object
          
     }

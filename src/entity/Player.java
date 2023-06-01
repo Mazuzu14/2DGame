@@ -24,7 +24,7 @@ public class Player extends Entity{
     
     public final int screenX; //where player is drawn on screen
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
     
     public Player(GamePanel g, KeyHandler kh)
     {
@@ -143,7 +143,7 @@ public class Player extends Entity{
             {
                 hasKey++;
                 gp.obj[i] = null;
-                System.out.println("Keys: " + hasKey);
+                gp.ui.showMessage("You got a key!");
             }
             else if (objectName.equals("Door"))
             {
@@ -152,7 +152,7 @@ public class Player extends Entity{
                     gp.obj[i] = null;
                     hasKey--;
                 }
-                System.out.println("Keys: " + hasKey);
+
             }
             else if (objectName.equals("Boots"))
             {
