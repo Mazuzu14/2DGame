@@ -24,7 +24,7 @@ public class Player extends Entity{
     
     public final int screenX; //where player is drawn on screen
     public final int screenY;
-    
+    int hasKey = 0;
     
     public Player(GamePanel g, KeyHandler kh)
     {
@@ -32,8 +32,9 @@ public class Player extends Entity{
         keyH = kh;
         screenX = gp.screenWidth/2 - gp.tileSize/2;
         screenY = gp.screenHeight/2 - gp.tileSize/2; //subtract halfway point of screen by half of player image size
-        
         solidArea = new Rectangle(8, 16, 32, 16); //sets player hitbox
+        solidAreaDefaultX = solidArea.x; //record default values
+        solidAreaDefaultY = solidArea.y;
         
         setDefaultValues();
         getPlayerImage();
@@ -41,8 +42,8 @@ public class Player extends Entity{
     //sets defalt values for player
     public void setDefaultValues()
     {
-        worldX = gp.tileSize * 21;
-        worldY = gp.tileSize * 23;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
@@ -91,9 +92,15 @@ public class Player extends Entity{
                 direction = "right";
                 worldX += speed;
             }
-            
+                       
             //CHECK TILE COLLISION
             collisionOn = false;
+            
+            //CHECK OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+            
+            //CHECK TILE COLLISION
             gp.cChecker.checkTile(this); //checks if player is hitting tile
             if (collisionOn == true) //stops player movement if collison is true
             {
@@ -114,7 +121,7 @@ public class Player extends Entity{
                     worldX  -= speed;
                 }
             }
-            
+        
             //changes player image every 10 frames
             spriteCounter++;
             if(spriteCounter > 10)
@@ -127,7 +134,33 @@ public class Player extends Entity{
             }
         }       
     }
-    
+    public void pickUpObject(int i)
+    {
+        if(i != 999)
+        {
+            String objectName = gp.obj[i].name;
+            if (objectName.equals("Key"))
+            {
+                hasKey++;
+                gp.obj[i] = null;
+                System.out.println("Keys: " + hasKey);
+            }
+            else if (objectName.equals("Door"))
+            {
+                if (hasKey > 0)
+                {
+                    gp.obj[i] = null;
+                    hasKey--;
+                }
+                System.out.println("Keys: " + hasKey);
+            }
+            else if (objectName.equals("Boots"))
+            {
+                speed += 1;
+                gp.obj[i] = null;
+            }
+        }
+    }
     //draws image of chracter based on direction, time, and location
     public void draw(Graphics2D g2)
     {

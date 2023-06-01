@@ -9,22 +9,21 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author 820899
+ * @author Mazuki
  */
-public class OBJ_Door extends SuperObject{
-
-    public OBJ_Door()
+public class OBJ_Boots extends SuperObject{
+    public OBJ_Boots()
     {
-        name = "Door";
+        name = "Boots";
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/door.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/objects/boot.png"));
         }
         catch(IOException e)
         {
             e.printStackTrace();
         }
-        collision = true;
-    }
         
+    }
+    
 }
