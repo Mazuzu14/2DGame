@@ -4,6 +4,7 @@
  */
 package pkg2dgame;
 
+
 import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +21,8 @@ import tile.TileManager;
  * @author 820899
  */
 public class GamePanel extends JPanel implements Runnable{
+    
+    int mapNumber;
     // SCREEN SETTINGS
     final int originalTileSize = 16; //16x16 tile size
     final int scale = 3;
@@ -38,27 +41,30 @@ public class GamePanel extends JPanel implements Runnable{
     
     int FPS = 60;//sets frames per second
     
-    TileManager tileM = new TileManager(this);
+    TileManager tileM;
     KeyHandler keyH = new KeyHandler();
     public UI ui = new UI(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
+    public AssetSetter aSetter;
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10]; //how many objects can be displayed
+    public SuperObject[] obj = new SuperObject[12]; //how many objects can be displayed
     
-    public GamePanel()
+    public GamePanel(int mnum)
     {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //sets size of screen
         this.setBackground(Color.black); //sets background color
         this.setDoubleBuffered(true); //eliminates image flickering
         this.addKeyListener(keyH); //allows Game Panel to recieve key input
         this.setFocusable(true); //allows Game Panel to be focused
+        mapNumber = mnum; 
+        tileM = new TileManager(this, mapNumber);
+        aSetter = new AssetSetter(this, mapNumber);
     }
     
     public void setupGame()
     {
-        aSetter.setObject();
+        aSetter.setObject(); //creates game objects
     }
     public void startGameThread()
     {

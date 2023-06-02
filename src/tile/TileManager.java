@@ -22,13 +22,13 @@ GamePanel gp;
 public Tile[] tile;
 public int[][] mapTileNum;
 
-public TileManager(GamePanel g)
+public TileManager(GamePanel g, int mnum)
 {
     gp = g;
     tile = new Tile[10]; //instatiates tile array
     mapTileNum = new int[gp.maxWorldRow][gp.maxWorldCol];
     getTileImage(); //creates tile objects in tile array
-    loadMap("/maps/world01.txt"); //loads map
+    loadMap("/maps/world0" + mnum + ".txt"); //loads map
 }
 public void getTileImage()
 {

@@ -92,8 +92,8 @@ public class Player extends Entity{
                 direction = "right";
                 worldX += speed;
             }
-                       
-            //CHECK TILE COLLISION
+            
+            //RESET TO DEFAULT COLLISION
             collisionOn = false;
             
             //CHECK OBJECT COLLISION
@@ -151,6 +151,11 @@ public class Player extends Entity{
                 {
                     gp.obj[i] = null;
                     hasKey--;
+                    gp.ui.showMessage("You opened a door!");
+                }
+                else
+                {
+                    gp.ui.showMessage("You need a key");
                 }
 
             }
@@ -158,6 +163,11 @@ public class Player extends Entity{
             {
                 speed += 1;
                 gp.obj[i] = null;
+                gp.ui.showMessage("You got speed boots!");
+            }
+            else if (objectName.equals("Chest"))
+            {
+                gp.ui.gameFinished = true;
             }
         }
     }

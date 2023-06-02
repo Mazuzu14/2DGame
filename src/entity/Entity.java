@@ -23,6 +23,6 @@ public class Entity {
     public int spriteNum = 1; //current sprite image
     
     public Rectangle solidArea; //hitbox of entity
-    public int solidAreaDefaultX, solidAreaDefaultY;
+    public int solidAreaDefaultX, solidAreaDefaultY; 
     public boolean collisionOn = false; 
 }
